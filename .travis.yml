@@ -3,6 +3,12 @@ linux: &linux
   sudo: required
   language: python
 
+env:
+  global:
+    - CONAN_CLANG_VERSIONS=4.0
+    - CONAN_ARCHS=x86_64
+    - CONAN_BUILD_TYPES=Release
+
 matrix:
   include:
     - <<: *linux
