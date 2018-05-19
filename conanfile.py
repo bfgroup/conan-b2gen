@@ -173,16 +173,15 @@ class b2gen(Generator):
             return []
         if is_paths:
             val = list(self.b2_path(p) for p in val)
-        # TODO: Use conanbuildinfo_variation_constant_template.
-        result = ['constant-if {var}({name},{variation}) :'.format(
-            name=name, var=var, variation=self.b2_variation_id)]
+        value = []
         for v in val:
             if v.startswith('<'):
-                result += ['    {val}'.format(val=v)]
+                value += ['    {val}'.format(val=v)]
             else:
-                result += ['    "{val}"'.format(val=v)]
-        result += ['    ;']
-        return result
+                value += ['    "{val}"'.format(val=v)]
+        return [self.conanbuildinfo_variation_constant_template.format(
+            name=name, var=var, variation=self.b2_variation_id, value="\n".join(value)
+        )]
 
     def b2_path(self, p):
         '''
