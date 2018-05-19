@@ -1,0 +1,17 @@
+linux: &linux
+  os: linux
+  sudo: required
+  language: python
+
+matrix:
+  include:
+    - <<: *linux
+      python: 2.7
+
+install:
+  - chmod +x .travis/install.sh
+  - ./.travis/install.sh
+
+script:
+  - chmod +x .travis/run.sh
+  - ./.travis/run.sh
