@@ -1,16 +1,15 @@
 .. _b2_generator:
 
-
 `B2`
-===
+====
 
 .. container:: out_reference_box
 
-    This is the reference page for ``B2``, aka *Boost Build*, generator. It is
+    This is the reference page for the ``B2``, aka *Boost Build*, generator. It is
     a multi-generator to match the multi-build nature of ``B2``.
 
 Usage
----
+-----
 
 .. code-block:: bash
 
@@ -21,16 +20,16 @@ The commands will generate 3 files:
 
 - ``conanbuildinfo.jam``: Which includes the other two, and enables its use.
 - ``conanbuildinfo-XXX.jam``: Variables and targets adjusted only for
-    build_type Release, where ``XXX`` is a key indicating the full variation
-    built.
+  build_type Release, where ``XXX`` is a key indicating the full variation
+  built.
 - ``conanbuildinfo-YYY.jam``: Variables and targets adjusted only for
-    build_type Debug, where ``YYY`` is a key indicating the full variation
-    built.
+  build_type Debug, where ``YYY`` is a key indicating the full variation
+  built.
 
 .. _conanbuildinfo_jam_projects:
 
 Sub-projects in conanbuildinfo-XXX.jam
----
+--------------------------------------
 
 The ``B2`` generator defines sub-projects relative to the location of the
 ``B2`` project you generate the conan configuration. For each package a
@@ -66,7 +65,7 @@ for example ``../clara`` or ``subproject/clara``.
 .. _conanbuildinfo_jam_targets:
 
 Targets in conanbuildinfo-XXX.jam
----
+---------------------------------
 
 For each package a target in the corresponding package subproject is created
 that is specific to the variant built. There is also a general ``libs`` target
@@ -134,7 +133,7 @@ targets for that.
 .. _conanbuildinfo_jam_variables:
 
 Constants in conanbuildinfo-XXX.jam
----
+-----------------------------------
 
 This generator also defines constants, and path constants, in the project
 where the conanfile.txt is located. The constants define variant specific
