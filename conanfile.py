@@ -15,7 +15,7 @@ from hashlib import md5
 
 class B2GeneratorPackage(ConanFile):
     name = "b2gen"
-    version = "1.0"
+    version = "1.1"
     author = "Rene Rivera (grafikrobot@gmail.com)"
     url = "https://github.com/boostorg/build/integration/conan"
     license = "BSL"
@@ -328,6 +328,7 @@ class b2gen(Generator):
 import path ;
 import project ;
 import modules ;
+import feature ;
 
 local base-project = [ project.current ] ;
 local base-project-mod = [ $(base-project).project-module ] ;
@@ -384,8 +385,14 @@ IMPORT $(__name__)
     : $(base-project-mod)
     : project-define constant-if call-in-project include-conanbuildinfo ;
 
-variant relwithdebinfo : : <optimization>speed <debug-symbols>on <inlining>full <runtime-debugging>off ;
-variant minsizerel : : <optimization>space <debug-symbols>off <inlining>full <runtime-debugging>off ;
+if ! ( relwithdebinfo in [ feature.values variant ] )
+{
+    variant relwithdebinfo : : <optimization>speed <debug-symbols>on <inlining>full <runtime-debugging>off ;
+}
+if ! ( minsizerel in [ feature.values variant ] )
+{
+    variant minsizerel : : <optimization>space <debug-symbols>off <inlining>full <runtime-debugging>off ;
+}
 
 local __conanbuildinfo__ = [ GLOB $(__file__:D) : conanbuildinfo-*.jam : downcase ] ;
 {
