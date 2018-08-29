@@ -15,7 +15,7 @@ from hashlib import md5
 
 class B2GeneratorPackage(ConanFile):
     name = "b2gen"
-    version = "1.1"
+    version = "1.2"
     author = "Rene Rivera (grafikrobot@gmail.com)"
     url = "https://github.com/boostorg/build/integration/conan"
     license = "BSL"
@@ -138,7 +138,7 @@ class b2gen(Generator):
                 ])
 
         if user:
-            for uk, uv in user.vars.iteritems():
+            for uk, uv in user.vars.items():
                 result += self.b2_constant(uk.lower() + ',' + name, 'user', [uv])
 
         return result
@@ -195,7 +195,7 @@ class b2gen(Generator):
         map of key-values.
         '''
         result = []
-        for k, v in m.items():
+        for k, v in sorted(m.items()):
             if v:
                 result += ['<%s>%s' % (k, v)]
         return result
@@ -212,7 +212,7 @@ class b2gen(Generator):
         A hashed key of the variation to use a UID for the variation.
         '''
         if not self._b2_variation_key:
-            self._b2_variation_key = md5(self.b2_variation_id).hexdigest()
+            self._b2_variation_key = md5(self.b2_variation_id.encode('utf-8')).hexdigest()
         return self._b2_variation_key
 
     _b2_variation_id = None
